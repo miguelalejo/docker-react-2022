@@ -3,7 +3,7 @@ FROM node:14-alpine as react-build
 WORKDIR /app
 COPY package.json .
 RUN npm install
-COPY . .
+COPY . ./
 RUN npm run build 
 
 # server environment
