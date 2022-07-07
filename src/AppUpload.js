@@ -33,9 +33,14 @@ class App extends Component {
 
       // Update the formData object
       formData.append(
-        "myFileData",
+        "fileBlob",
         selectedFile,
-        selectedFile.name
+        "Blob File"
+      );
+      console.log(selectedFile.name);      
+      formData.append(
+        "fileName",
+        String(selectedFile.name)
       );
 
       // Details of the uploaded file
@@ -43,7 +48,7 @@ class App extends Component {
 
       // Request made to the backend api
       // Send formData object
-      axios.post("api/uploadfile", formData, {
+      axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
