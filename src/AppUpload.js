@@ -45,10 +45,10 @@ class App extends Component {
       // Send formData object
       axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE',
-          'Access-Control-Allow-Headers': 'Content-Type'
+          'Access-Control-Allow-Methods' : 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
         }
     });
 
