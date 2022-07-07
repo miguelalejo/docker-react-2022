@@ -35,11 +35,6 @@ class App extends Component {
       formData.append(
         "fileBlob",
         selectedFile,
-        "Blob File"
-      );
-      console.log(selectedFile.name);      
-      formData.append(
-        "fileName",
         String(selectedFile.name)
       );
 
@@ -50,7 +45,10 @@ class App extends Component {
       // Send formData object
       axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE',
+          'Access-Control-Allow-Headers': 'Content-Type'
         }
     });
 
