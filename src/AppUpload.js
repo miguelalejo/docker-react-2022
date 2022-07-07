@@ -33,7 +33,7 @@ class App extends Component {
 
       // Update the formData object
       formData.append(
-        "myFile"+key,
+        "myFileData",
         selectedFile,
         selectedFile.name
       );
