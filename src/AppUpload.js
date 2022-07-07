@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import React, { Component } from 'react';
 
 class App extends Component {
@@ -35,7 +34,12 @@ class App extends Component {
       formData.append(
         "fileBlob",
         selectedFile,
-        String(selectedFile.name)
+        selectedFile.name
+      );
+
+      formData.append(
+        "fileName",
+        selectedFile.name
       );
 
       // Details of the uploaded file
@@ -44,12 +48,7 @@ class App extends Component {
       // Request made to the backend api
       // Send formData object
       axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
-        headers: {
-          'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods' : 'POST, GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-        }
+        headers: { "Content-Type": "multipart/form-data" }
     });
 
     }
@@ -75,10 +74,7 @@ class App extends Component {
             <p>File Type: {selectedFile.type}</p>
 
 
-            <p>
-              Last Modified:{" "}
-              {selectedFile.lastModifiedDate.toDateString()}
-            </p>
+           
 
           </div>
         );
