@@ -21,9 +21,16 @@ class App extends Component {
 
   };
 
+  generateRandom(){
+    const min = 1;
+    const max = 10000;
+    return  Date.now()+min + Math.random() * (max - min);
+  };
+
   // On file upload (click the upload button)
   onFileUpload (e) {
     e.preventDefault();
+    var idTransacction = generateRandom();
     for (const key of Object.keys(this.state.selectedFiles)) {
       // Create an object of formData
       console.log(key);
@@ -40,6 +47,11 @@ class App extends Component {
       formData.append(
         "fileName",
         selectedFile.name
+      );
+
+      formData.append(
+        "idTransaction",
+        idTransacction
       );
 
       // Details of the uploaded file
