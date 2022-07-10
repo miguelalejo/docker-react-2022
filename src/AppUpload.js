@@ -24,13 +24,14 @@ class App extends Component {
   generateRandom(){
     const min = 1;
     const max = 10000;
-    return  Date.now()+min + Math.random() * (max - min);
-  };
+    var randomPart = +min + Math.random() * (max - min);
+    return  Date.now()+randomPart;
+  }
 
   // On file upload (click the upload button)
   onFileUpload (e) {
     e.preventDefault();
-    var idTransacction = generateRandom();
+    var idTransacction = this.generateRandom();
     for (const key of Object.keys(this.state.selectedFiles)) {
       // Create an object of formData
       console.log(key);
