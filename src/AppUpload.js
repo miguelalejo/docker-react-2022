@@ -61,10 +61,25 @@ class App extends Component {
       // Request made to the backend api
       // Send formData object
       axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-    });
+        headers: { "Content-Type": "multipart/form-data" }});
 
     }
+
+    const formDataPub = new FormData();
+
+    formDataPub.append(
+      "idTransaction",
+      idTransacction
+    );
+
+    // Details of the uploaded file
+    console.log("Sendpub");
+    console.log(idTransacction);
+
+    // Request made to the backend api
+    // Send formData object
+    axios.put("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formDataPub, {
+      headers: { "Content-Type": "multipart/form-data" }});
 
   };
 
