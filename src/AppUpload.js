@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Outlet, Link } from "react-router-dom";
 
 class App extends Component {
 
@@ -140,7 +141,17 @@ class App extends Component {
             Upload!
           </button>
         </div>
+        <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <Link to="/table">table</Link>
+      </nav>
+      <Outlet />
         {this.fileData()}
+        
       </div>
     );
   }

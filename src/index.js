@@ -1,10 +1,24 @@
 import React from 'react';
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+  } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import './index.css';
 import AppUpload from './AppUpload';
+import AppTable from './AppTable';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<AppUpload />, document.getElementById('root'));
+
+ReactDOM.render(
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<AppUpload />} />
+      <Route path="table" element={<AppTable />} />      
+    </Routes>
+  </BrowserRouter>, document.getElementById('root'));
+  
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
