@@ -5,11 +5,10 @@ import {
     Route,
   } from "react-router-dom";
 import ReactDOM from 'react-dom';
-import './index.css';
 import AppUpload from './AppUpload';
 import AppTable from './AppTable';
 import * as serviceWorker from './serviceWorker';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
     <BrowserRouter>

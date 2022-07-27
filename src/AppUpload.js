@@ -1,8 +1,29 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
+import WithLabelExample from './AppProgressBar';
+import Toast from 'react-bootstrap/Toast';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
+const ExampleToast = ({ children }) => {
+  const [show, toggleShow] = useState(true);
+
+  return (
+    <>
+      {!show && <Button onClick={() => toggleShow(true)}>Show Toast</Button>}
+      <Toast show={show} onClose={() => toggleShow(false)}>
+        <Toast.Header>
+          <strong className="mr-auto">React-Bootstrap</strong>
+        </Toast.Header>
+        <Toast.Body>{children}</Toast.Body>
+      </Toast>
+    </>
+  );
+};
 class App extends Component {
+
+  
 
 
   constructor(props) {
@@ -21,6 +42,7 @@ class App extends Component {
     this.setState({ selectedFiles: e.target.files });
 
   };
+  
 
   generateRandom(){
     const min = 1;
@@ -65,6 +87,8 @@ class App extends Component {
         headers: { "Content-Type": "multipart/form-data" }});
 
     }
+
+  
 
     const formDataPub = new FormData();
 
@@ -125,10 +149,24 @@ class App extends Component {
 
   };
 
+  
+
   render() {
 
     return (
+      
       <div>
+         <Container className="p-3">
+    <Container className="p-5 mb-4 bg-light rounded-3">
+      <h1 className="header">Cargar Archivos</h1>
+      <ExampleToast>
+        We now have Toasts
+        <span role="img" aria-label="tada">
+          🎉
+        </span>
+      </ExampleToast>
+    </Container>
+  </Container>
         <h1>
           GeeksforGeeks
         </h1>
@@ -151,8 +189,10 @@ class App extends Component {
       </nav>
       <Outlet />
         {this.fileData()}
-        
+
+      <WithLabelExample/>  
       </div>
+      
     );
   }
 }

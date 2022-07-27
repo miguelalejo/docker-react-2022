@@ -45,7 +45,7 @@ function TableData() {
                         <td>{item.idTran}</td>
                         <td>{item.ruc}</td>
                         <td>{item.date}</td>
-                        <td><a href={"https://fuctions-api-rest-pcqrvbtxdq-uc.a.run.app/reportes/"+item.idTran} download></a>descargar</td>
+                        <td><a href={"https://fuctions-api-rest-pcqrvbtxdq-uc.a.run.app/reportes/"+item.idTran} download>descargar</a></td>
                     </tr>
                 ))}
             </tbody>
