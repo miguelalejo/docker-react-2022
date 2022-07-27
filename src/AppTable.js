@@ -34,7 +34,7 @@ function TableData() {
                 <th>Id Tans</th>
                 <th>RUC</th>
                 <th>Fecha</th>
-                <th>Descargar</th>
+                <th>Reporte Excel</th>
               </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@ function TableData() {
                         <td>{item.idTran}</td>
                         <td>{item.ruc}</td>
                         <td>{item.date}</td>
-                        <td><a href="https://fuctions-api-rest-pcqrvbtxdq-uc.a.run.app/reportes/{item.idTran}" download></a></td>
+                        <td><a href={"https://fuctions-api-rest-pcqrvbtxdq-uc.a.run.app/reportes/"+item.idTran} download></a>descargar</td>
                     </tr>
                 ))}
             </tbody>
