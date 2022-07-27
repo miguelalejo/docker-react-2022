@@ -33,7 +33,8 @@ function TableData() {
                 <th>Gruop Id</th>
                 <th>Id Tans</th>
                 <th>RUC</th>
-                <th>Date</th>
+                <th>Fecha</th>
+                <th>Descargar</th>
               </tr>
             </thead>
             <tbody>
@@ -44,6 +45,7 @@ function TableData() {
                         <td>{item.idTran}</td>
                         <td>{item.ruc}</td>
                         <td>{item.date}</td>
+                        <td><a href="https://fuctions-api-rest-pcqrvbtxdq-uc.a.run.app/reportes/{item.date}" download></a></td>
                     </tr>
                 ))}
             </tbody>
