@@ -1,10 +1,14 @@
 import axios from 'axios';
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
-import WithLabelExample from './AppProgressBar';
+import AppProgress from './AppProgressBar';
 import Toast from 'react-bootstrap/Toast';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
+
+
 
 const ExampleToast = ({ children }) => {
   const [show, toggleShow] = useState(true);
@@ -22,18 +26,22 @@ const ExampleToast = ({ children }) => {
   );
 };
 class App extends Component {
-
-  
-
-
+  now = 10;
   constructor(props) {
     super(props);
     this.onFileChange = this.onFileChange.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
+    this.now = 0;
     this.state = {
-      selectedFiles: ''
+      selectedFiles: '',
+      show: false,
+      showToast: true,
+      nFiles: 0,
+      loadVal: 0,
+      styleLoad: "secondary"
     }
-}
+  }
 
   // On file select (from the pop up)
   onFileChange(e) {
@@ -42,19 +50,22 @@ class App extends Component {
     this.setState({ selectedFiles: e.target.files });
 
   };
-  
 
-  generateRandom(){
+
+  generateRandom() {
     const min = 1;
     const max = 10000;
     var randomPart = +min + Math.random() * (max - min);
-    return  Date.now()+randomPart;
+    return Date.now() + randomPart;
   }
 
   // On file upload (click the upload button)
-  onFileUpload (e) {
+  onFileUpload(e) {
     e.preventDefault();
     var idTransacction = this.generateRandom();
+    this.state.loadVal = 0;
+    var step = Math.floor(100 / this.state.selectedFiles.length);
+    this.state.showToast = true;
     for (const key of Object.keys(this.state.selectedFiles)) {
       // Create an object of formData
       console.log(key);
@@ -84,13 +95,15 @@ class App extends Component {
       // Request made to the backend api
       // Send formData object
       axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
-        headers: { "Content-Type": "multipart/form-data" }});
-
+        headers: { "Content-Type": "multipart/form-data" }
+      });
+      this.state.loadVal = this.state.loadVal + step;
+      this.updateMessage(this.state.loadVal);
+      console.log(this.state.loadVal);
     }
 
-  
-
     const formDataPub = new FormData();
+
 
     formDataPub.append(
       "idTransaction",
@@ -104,14 +117,17 @@ class App extends Component {
     // Request made to the backend api
     // Send formData object
     axios.put("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formDataPub, {
-      headers: { "Content-Type": "multipart/form-data" }});
+      headers: { "Content-Type": "multipart/form-data" }
+    });
 
   };
 
   // File content to be displayed after
   // file upload is complete
-  fileData() {    
+  fileData() {
+    
     var dom_content = [];
+    this.state.nFiles = this.state.selectedFiles.length;
     for (const key of Object.keys(this.state.selectedFiles)) {
       console.log(key);
       var selectedFile = this.state.selectedFiles[key];
@@ -119,80 +135,101 @@ class App extends Component {
 
         dom_content.push(
           <div id={key}>
-            <h2>File Details:</h2>
-
-            <p>File Name: {selectedFile.name}</p>
-
-
-            <p>File Type: {selectedFile.type}</p>
-
-
-           
-
+            <p>{selectedFile.name}</p>
           </div>
         );
       } else {
-        dom_content.push (
+        dom_content.push(
           <div>
             <br />
-            <h4>Choose before Pressing the Upload button</h4>
+            <h4>Debe seleccionar un archivo</h4>
           </div>
         );
       }
     }
+
+    if(this.state.nFiles>0){
+      this.state.styleLoad = "primary";
+    }
+
+    
     return (
-      <div> 
+      <div>
+        <Alert show={this.state.show} variant="primary">
+          <Alert.Heading>Lista Archivos</Alert.Heading>
           {dom_content}
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => this.setState({ show: false })} variant="outline-success">
+              Ocultar
+            </Button>
+          </div>
+        </Alert>
+        {!this.state.show && <Button onClick={() => this.setState({ show: true })}>Mostrar son {this.state.nFiles} archivos</Button>}
       </div>
-  );
-
-
+    );
   };
 
-  
+  updateMessage(message) {
+    this.setState({
+      loadVal: message
+    });
+  }
+
 
   render() {
 
     return (
-      
-      <div>
-         <Container className="p-3">
-    <Container className="p-5 mb-4 bg-light rounded-3">
-      <h1 className="header">Cargar Archivos</h1>
-      <ExampleToast>
-        We now have Toasts
-        <span role="img" aria-label="tada">
-          🎉
-        </span>
-      </ExampleToast>
-    </Container>
-  </Container>
-        <h1>
-          GeeksforGeeks
-        </h1>
-        <h3>
-          File Upload using React!
-        </h3>
-        <div>
-          <input type="file" onChange={this.onFileChange} multiple accept="text/xml" />
-          <button onClick={this.onFileUpload}>
-            Upload!
-          </button>
-        </div>
-        <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/table">table</Link>
-      </nav>
-      <Outlet />
-        {this.fileData()}
 
-      <WithLabelExample/>  
+      <div>
+        <Container className="p-3">
+          <Container className="p-5 mb-4 bg-light rounded-3">
+            <h1 className="header">Cargar Archivos</h1>
+            <h3>Seleccione los archivos en formato xml</h3>
+          </Container>
+          <div>
+            <Form>
+              <Form.Group controlId="formFile" className="mb-3" onChange={this.onFileChange}  >
+                <Form.Control type="file" multiple accept="text/xml"  ></Form.Control>
+              </Form.Group>
+              <div className="d-grid gap-2">
+                <br />
+                <Outlet />
+                {this.fileData()}
+                <Button variant={this.state.styleLoad}  onClick={this.onFileUpload}>
+                  Cargar y procesar!
+                </Button>
+              </div>
+            </Form>
+            
+          </div>
+          <div className="d-grid gap-2">
+              <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast}>
+              
+                <Toast.Header >
+                  <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                  <strong className="me-auto">Cargando</strong>
+                  <small className="text-muted">{this.state.loadVal} %</small>
+                </Toast.Header>
+                <Toast.Body>Progreso
+                  <AppProgress loadVal={this.state.loadVal}
+                    updateMessage={this.updateMessage.bind(this)}></AppProgress>
+                </Toast.Body>
+                
+              </Toast>
+              </div>
+
+          <br />
+          <div className="d-grid gap-2">
+            <a className="btn btn-warning" href="/table" role="button">Ver Reporte</a>
+          </div>
+        </Container>
+        <br />
+
+
+
       </div>
-      
+
     );
   }
 }

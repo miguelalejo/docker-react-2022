@@ -1,8 +1,25 @@
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import React, { Component, useState } from 'react';
+class AppProgress extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {}  
+  }
 
-function WithLabelExample() {
-  const now = 60;
-  return <ProgressBar now={now} label={`${now}%`} />;
+  updateMessage(event) {
+    this.props.updateMessage(event.target.value);
+  }
+
+ 
+
+  render() {
+    return (
+      <div>
+        
+       <ProgressBar now={this.props.loadVal} label={`${this.props.loadVal}%`} />
+      </div>
+    );
+  }
 }
 
-export default WithLabelExample;
+export default AppProgress;
