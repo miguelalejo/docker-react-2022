@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
  
 function TableData() {
     const [data, getData] = useState([])
-    const URL = 'https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/';
+    const URL = 'https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/';
  
     useEffect(() => {
         fetchData()
@@ -54,7 +54,7 @@ function TableData() {
                         <td>{item.idTran}</td>
                         <td>{item.ruc}</td>
                         <td>{item.date}</td>
-                        <td><a href={"https://fuctions-api-rest-pcqrvbtxdq-uc.a.run.app/reportes/"+item.idTran} download>descargar</a></td>
+                        <td><a href={"https://fnfastapi-pcqrvbtxdq-uc.a.run.app/reportes/"+item.idTran} download>descargar</a></td>
                     </tr>
                 ))}
             </tbody>
