@@ -55,6 +55,8 @@ class App extends Component {
       this.updateStyle("secondary");
     }
     this.updateToast(true);
+    this.state.loadVal = 0;
+    this.updateMessage(this.state.loadVal);
     this.setState({ selectedFiles: e.target.files });
 
   };
@@ -71,8 +73,7 @@ class App extends Component {
   onFileUpload(e) {
     e.preventDefault();
     var idTransacction = this.generateRandom();
-    this.state.loadVal = 0;
-    this.updateMessage(this.state.loadVal);
+    
     var step = this.state.selectedFiles.length/100;
     var token = this.state.selectedFiles.length/100;
     var increment = 1;
