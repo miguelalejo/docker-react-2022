@@ -126,6 +126,8 @@ class App extends Component {
       
       console.log(this.state.loadVal);
     }
+
+    this.updateMessage(100);
     this.updateStyle("success");
     
     const formDataPub = new FormData();
