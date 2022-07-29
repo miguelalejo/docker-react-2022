@@ -237,7 +237,7 @@ class App extends Component {
             
           </div>
           <div className="d-grid gap-2">
-              <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast} delay={15000} autohide >
+              <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast}  >
               
                 <Toast.Header >
                   <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
