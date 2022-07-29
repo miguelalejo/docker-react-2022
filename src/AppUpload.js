@@ -32,11 +32,13 @@ class App extends Component {
     this.onFileChange = this.onFileChange.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
+    this.updateStyle = this.updateStyle.bind(this);
+    this.updateToast = this.updateToast.bind(this);
     this.now = 0;
     this.state = {
       selectedFiles: '',
       show: false,
-      showToast: true,
+      showToast: false,
       nFiles: 0,
       loadVal: 0,
       styleLoad: "secondary"
@@ -45,8 +47,14 @@ class App extends Component {
 
   // On file select (from the pop up)
   onFileChange(e) {
-
     // Update the state
+    e.preventDefault();
+    if(e.target.files.length>0){
+      this.updateStyle("primary");
+    } else {
+      this.updateStyle("secondary");
+    }
+    this.updateToast(true);
     this.setState({ selectedFiles: e.target.files });
 
   };
@@ -64,9 +72,18 @@ class App extends Component {
     e.preventDefault();
     var idTransacction = this.generateRandom();
     this.state.loadVal = 0;
-    var step = Math.floor(100 / this.state.selectedFiles.length);
-    this.state.showToast = true;
-    for (const key of Object.keys(this.state.selectedFiles)) {
+    this.updateMessage(this.state.loadVal);
+    var step = this.state.selectedFiles.length/100;
+    var token = this.state.selectedFiles.length/100;
+    var increment = 1;
+    if(step<1){
+      token = 100/this.state.selectedFiles.length;
+      increment = token;
+    }
+    var index = 0;
+    
+    
+    for (const key of Object.keys(this.state.selectedFiles)) { 
       // Create an object of formData
       console.log(key);
       var selectedFile = this.state.selectedFiles[key];
@@ -97,11 +114,19 @@ class App extends Component {
       axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
-      this.state.loadVal = this.state.loadVal + step;
-      this.updateMessage(this.state.loadVal);
+      if(index>step){
+        this.state.loadVal = this.state.loadVal + increment;
+        this.updateMessage(this.state.loadVal);
+        step = step+token;
+        console.log(step);
+      }
+      index = index + increment;
+      
+      
       console.log(this.state.loadVal);
     }
-
+    this.updateStyle("success");
+    
     const formDataPub = new FormData();
 
 
@@ -147,12 +172,7 @@ class App extends Component {
         );
       }
     }
-
-    if(this.state.nFiles>0){
-      this.state.styleLoad = "primary";
-    }
-
-    
+        
     return (
       <div>
         <Alert show={this.state.show} variant="primary">
@@ -173,6 +193,18 @@ class App extends Component {
   updateMessage(message) {
     this.setState({
       loadVal: message
+    });
+  }
+
+  updateToast(show) {
+    this.setState({
+      showToast: show
+    });
+  }
+
+  updateStyle(style) {
+    this.setState({
+      styleLoad : style
     });
   }
 
@@ -204,7 +236,7 @@ class App extends Component {
             
           </div>
           <div className="d-grid gap-2">
-              <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast}>
+              <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast} delay={15000} autohide >
               
                 <Toast.Header >
                   <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />

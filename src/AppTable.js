@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
 import './AppTable.css';
+import Container from 'react-bootstrap/Container';
  
 function TableData() {
     const [data, getData] = useState([])
@@ -23,13 +25,20 @@ function TableData() {
     }
  
     return (
-        <div>
-        
-            <h1>How to display JSON data to table in React JS</h1>
-            <table className="table">
+        <div> 
+             <Container className="p-3">
+          <Container className="p-5 mb-4 bg-light rounded-3">
+            <h1 className="header">Rerpote Procesados</h1>
+           
+          </Container>
+          <div className="d-grid gap-2">
+            <a className="btn btn-warning" href="/" role="button">Cargar Archivos</a>
+          </div>
+          <hr />
+          <Table striped bordered hover >
             <thead>
               <tr>
-                <th>Nro.</th>
+                <th>#</th>
                 <th>Gruop Id</th>
                 <th>Id Tans</th>
                 <th>RUC</th>
@@ -49,10 +58,10 @@ function TableData() {
                     </tr>
                 ))}
             </tbody>
-          </table>
-          
-          
- 
+          </Table> 
+        </Container>      
+           
+            
         </div>
     );
 }
