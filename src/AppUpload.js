@@ -144,7 +144,7 @@ class App extends Component {
 
     // Request made to the backend api
     // Send formData object
-    axios.put("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formDataPub, {
+    axios.put("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formDataPub, {
       headers: { "Content-Type": "multipart/form-data" }
     });
 
