@@ -112,7 +112,7 @@ class App extends Component {
 
       // Request made to the backend api
       // Send formData object
-      axios.post("https://functions-framework-python-pcqrvbtxdq-uc.a.run.app/", formData, {
+      axios.post("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
       if(index>step){
@@ -188,7 +188,7 @@ class App extends Component {
             </Button>
           </div>
         </Alert>
-        {!this.state.show && <Button onClick={() => this.setState({ show: true })}>Mostrar son {this.state.nFiles} archivos</Button>}
+        {!this.state.show && <Button onClick={() => this.setState({ show: true })}>Mostrar ({this.state.nFiles} archivos)</Button>}
       </div>
     );
   };
