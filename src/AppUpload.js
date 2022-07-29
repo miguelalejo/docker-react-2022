@@ -73,12 +73,12 @@ class App extends Component {
   onFileUpload(e) {
     e.preventDefault();
     var idTransacction = this.generateRandom();
-    
-    var step = this.state.selectedFiles.length/100;
-    var token = this.state.selectedFiles.length/100;
+    var nFiles = this.state.selectedFiles.length;
+    var step = nFiles/100;
+    var token = nFiles/100;
     var increment = 1;
     if(step<1){
-      token = 100/this.state.selectedFiles.length;
+      token = 100/nFiles;
       increment = token;
     }
     var index = 0;
@@ -138,9 +138,14 @@ class App extends Component {
       idTransacction
     );
 
+    formDataPub.append(
+      "nFiles",
+      nFiles
+    );
+
     // Details of the uploaded file
-    console.log("Sendpub");
-    console.log(idTransacction);
+    console.log("Sendpub",idTransacction);
+    console.log("Sendpub",nFiles);
 
     // Request made to the backend api
     // Send formData object
