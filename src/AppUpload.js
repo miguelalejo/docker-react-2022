@@ -145,7 +145,7 @@ class App extends Component {
 
     // Details of the uploaded file
     console.log("Sendpub",idTransacction);
-    console.log("Sendpub",nFiles);
+    console.log("NFiles",nFiles);
 
     // Request made to the backend api
     // Send formData object
