@@ -70,7 +70,7 @@ class App extends Component {
   }
 
   // On file upload (click the upload button)
-  onFileUpload(e) {
+  async onFileUpload(e)  {
     e.preventDefault();
     var idTransacction = this.generateRandom();
     var nFiles = this.state.selectedFiles.length;
@@ -112,11 +112,10 @@ class App extends Component {
 
       // Request made to the backend api
       // Send formData object
-      axios.post("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formData, {
+      const responsePost = await axios.post("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: { "Content-Type": "multipart/form-data" }
-      }).then((response) => {
-        console.log('Server response:' + response.data.unique)        
       });
+      console.log(responsePost);
       if(index>step){
         this.state.loadVal = this.state.loadVal + increment;
         this.updateMessage(this.state.loadVal);
