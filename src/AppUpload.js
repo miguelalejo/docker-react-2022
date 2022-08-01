@@ -114,6 +114,8 @@ class App extends Component {
       // Send formData object
       axios.post("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formData, {
         headers: { "Content-Type": "multipart/form-data" }
+      }).then((response) => {
+        console.log('Server response:' + response.data.unique)        
       });
       if(index>step){
         this.state.loadVal = this.state.loadVal + increment;
