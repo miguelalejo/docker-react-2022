@@ -112,7 +112,7 @@ class App extends Component {
 
       // Request made to the backend api
       // Send formData object
-      const responsePost = await axios.post("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formData, {
+      const responsePost = await axios.post("https://ser-topic-proces-bill-ihed6msnea-uc.a.run.app/", formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
       console.log(responsePost);
@@ -150,7 +150,7 @@ class App extends Component {
 
     // Request made to the backend api
     // Send formData object
-    axios.put("https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/", formDataPub, {
+    axios.put("https://ser-topic-proces-bill-ihed6msnea-uc.a.run.app/", formDataPub, {
       headers: { "Content-Type": "multipart/form-data" }
     });
 

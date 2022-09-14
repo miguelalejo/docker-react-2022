@@ -36,7 +36,7 @@ class TableData extends Component {
 
   fetchData = async () => {
     this.setState({isFetching: true});
-    var URL = 'https://fnservicefunctionfra-pcqrvbtxdq-uc.a.run.app/';
+    var URL = 'https://ser-topic-proces-bill-ihed6msnea-uc.a.run.app/';
     axios.get(URL)
         .then(response => {
             this.state.data = response.data;
@@ -86,7 +86,7 @@ class TableData extends Component {
                   <td>{item.idTran}</td>
                   <td>{item.ruc}</td>
                   <td>{item.date}</td>
-                  <td><a href={"https://fnfastapi-pcqrvbtxdq-uc.a.run.app/reportes/" + item.idTran} download>descargar</a></td>
+                  <td><a href={"https://ser-fatapi-repos-ihed6msnea-uc.a.run.app/reportes/" + item.idTran} download>descargar</a></td>
                 </tr>
               ))}
             </tbody>
