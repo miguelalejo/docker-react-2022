@@ -49,7 +49,7 @@ class App extends Component {
   onFileChange(e) {
     // Update the state
     e.preventDefault();
-    if(e.target.files.length>0){
+    if (e.target.files.length > 0) {
       this.updateStyle("primary");
     } else {
       this.updateStyle("secondary");
@@ -70,21 +70,21 @@ class App extends Component {
   }
 
   // On file upload (click the upload button)
-  async onFileUpload(e)  {
+  async onFileUpload(e) {
     e.preventDefault();
     var idTransacction = this.generateRandom();
     var nFiles = this.state.selectedFiles.length;
-    var step = nFiles/100;
-    var token = nFiles/100;
+    var step = nFiles / 100;
+    var token = nFiles / 100;
     var increment = 1;
-    if(step<1){
-      token = 100/nFiles;
+    if (step < 1) {
+      token = 100 / nFiles;
       increment = token;
     }
     var index = 0;
-    
-    
-    for (const key of Object.keys(this.state.selectedFiles)) { 
+
+
+    for (const key of Object.keys(this.state.selectedFiles)) {
       // Create an object of formData
       console.log(key);
       var selectedFile = this.state.selectedFiles[key];
@@ -116,21 +116,21 @@ class App extends Component {
         headers: { "Content-Type": "multipart/form-data" }
       });
       console.log(responsePost);
-      if(index>step){
+      if (index > step) {
         this.state.loadVal = this.state.loadVal + increment;
         this.updateMessage(this.state.loadVal);
-        step = step+token;
+        step = step + token;
         console.log(step);
       }
       index = index + increment;
-      
-      
+
+
       console.log(this.state.loadVal);
     }
 
     this.updateMessage(100);
     this.updateStyle("success");
-    
+
     const formDataPub = new FormData();
 
 
@@ -145,8 +145,8 @@ class App extends Component {
     );
 
     // Details of the uploaded file
-    console.log("Sendpub",idTransacction);
-    console.log("NFiles",nFiles);
+    console.log("Sendpub", idTransacction);
+    console.log("NFiles", nFiles);
 
     // Request made to the backend api
     // Send formData object
@@ -159,7 +159,7 @@ class App extends Component {
   // File content to be displayed after
   // file upload is complete
   fileData() {
-    
+
     var dom_content = [];
     this.state.nFiles = this.state.selectedFiles.length;
     for (const key of Object.keys(this.state.selectedFiles)) {
@@ -181,19 +181,20 @@ class App extends Component {
         );
       }
     }
-        
+
     return (
       <div>
         <Alert show={this.state.show} variant="primary">
-        <div className="d-flex justify-content-end">
-            <Button onClick={() => this.setState({ show: false })} variant="outline-success">
-              Ocultar
-            </Button>
+          <Button onClick={() => this.setState({ show: false })} variant="outline-success">
+            Ocultar
+          </Button>
+          <div className="d-flex justify-content-end">
+
           </div>
           <Alert.Heading>Lista Archivos</Alert.Heading>
           {dom_content}
           <hr />
-         
+
         </Alert>
         {!this.state.show && <Button onClick={() => this.setState({ show: true })}>Mostrar ({this.state.nFiles} archivos)</Button>}
       </div>
@@ -214,7 +215,7 @@ class App extends Component {
 
   updateStyle(style) {
     this.setState({
-      styleLoad : style
+      styleLoad: style
     });
   }
 
@@ -238,28 +239,28 @@ class App extends Component {
                 <br />
                 <Outlet />
                 {this.fileData()}
-                <Button variant={this.state.styleLoad}  onClick={this.onFileUpload}>
+                <Button variant={this.state.styleLoad} onClick={this.onFileUpload}>
                   Cargar y procesar!
                 </Button>
               </div>
             </Form>
-            
+
           </div>
           <div className="d-grid gap-2">
-              <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast}  >
-              
-                <Toast.Header >
-                  <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                  <strong className="me-auto">Cargando</strong>
-                  <small className="text-muted">{this.state.loadVal} %</small>
-                </Toast.Header>
-                <Toast.Body>Progreso
-                  <AppProgress loadVal={this.state.loadVal}
-                    updateMessage={this.updateMessage.bind(this)}></AppProgress>
-                </Toast.Body>
-                
-              </Toast>
-              </div>
+            <Toast onClose={() => this.setState({ showToast: false })} show={this.state.showToast}  >
+
+              <Toast.Header >
+                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                <strong className="me-auto">Cargando</strong>
+                <small className="text-muted">{this.state.loadVal} %</small>
+              </Toast.Header>
+              <Toast.Body>Progreso
+                <AppProgress loadVal={this.state.loadVal}
+                  updateMessage={this.updateMessage.bind(this)}></AppProgress>
+              </Toast.Body>
+
+            </Toast>
+          </div>
 
           <br />
           <div className="d-grid gap-2">
