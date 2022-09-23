@@ -185,14 +185,15 @@ class App extends Component {
     return (
       <div>
         <Alert show={this.state.show} variant="primary">
-          <Alert.Heading>Lista Archivos</Alert.Heading>
-          {dom_content}
-          <hr />
-          <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end">
             <Button onClick={() => this.setState({ show: false })} variant="outline-success">
               Ocultar
             </Button>
           </div>
+          <Alert.Heading>Lista Archivos</Alert.Heading>
+          {dom_content}
+          <hr />
+         
         </Alert>
         {!this.state.show && <Button onClick={() => this.setState({ show: true })}>Mostrar ({this.state.nFiles} archivos)</Button>}
       </div>
