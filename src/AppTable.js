@@ -39,7 +39,8 @@ class TableData extends Component {
     var URL = 'https://ser-topic-proces-bill-ihed6msnea-uc.a.run.app/';
     axios.get(URL)
       .then(response => {
-        this.state.data = response.data;
+      
+        this.state.data = response.data.slice(0, 30);
 
         console.log("Axios");
         console.log(this.state.data);
