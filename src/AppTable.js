@@ -40,7 +40,7 @@ class TableData extends Component {
     axios.get(URL)
       .then(response => {
       
-        this.state.data = response.data.slice(0, 30);
+        this.state.data = response.data.slice(0, 50);
 
         console.log("Axios");
         console.log(this.state.data);
